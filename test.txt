@@ -1,0 +1,31 @@
+
+
+@client.event
+async def on_message(message: discord.Message):
+    if message.author == client.user:
+        return
+
+    username: str = message.author.name
+    try:
+        channel: str = message.channel.name
+    except Exception:
+        channel: str = ""
+    try:
+        server: str = message.guild.name
+    except Exception:
+        server: str = ""
+
+    print(
+        get_time(),
+        f"[{server}] ({channel}) @{username}: '{message.content}'"
+        + (
+            " {media(s): " + str(message.attachments) + "}"
+            if message.attachments
+            else ""
+        ),
+    )
+    discord.Attachment.__str__ = (
+        lambda self: f'"{self.filename}" {"spoiler" if self.is_spoiler else ""}'
+    )
+    # RESPONSE HERE
+
