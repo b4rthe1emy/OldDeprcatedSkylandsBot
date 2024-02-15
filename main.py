@@ -2,7 +2,6 @@ from typing import Final
 import discord
 from discord.ext import commands
 from datetime import datetime
-from discord import app_commands
 
 import member_join
 import polls
@@ -27,8 +26,8 @@ intents.message_content = True
 bot = commands.Bot(command_prefix="/", intents=intents)
 
 
-# polls.setup(client)
-# member_join.setup(bot)
+polls.setup(client)
+member_join.setup(bot)
 
 
 @bot.event
@@ -43,4 +42,3 @@ async def on_ready():
 
 if __name__ == "__main__":
     bot.run(TOKEN)
-    # client.run(TOKEN)
