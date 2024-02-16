@@ -23,7 +23,7 @@ def setup(client: discord.Client):
 
         options: str = message.content[6:]
 
-        list_options = message.content.split(";")
+        list_options = options.split(";")
         title = list_options[0]
         list_options = list_options[1:]
 
@@ -35,11 +35,17 @@ def setup(client: discord.Client):
             number += 1
 
         msg: discord.Message = await message.channel.send(
-            embed=discord.Embed(title=title, description=formated_options),
+            embed=discord.Embed(
+                title=title,
+                description=formated_options,
+                colour=0x3498DB,
+            ),
         )
 
         number = 0
         for i in range(len(list_options)):
             await msg.add_reaction(number_emoji(i))
+
+        message.delete()
 
     date_print("polls.py loaded succefully")
