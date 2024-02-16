@@ -19,7 +19,13 @@ def setup(client: discord.Client):
 
         print("new member")
 
-        await channel.send(f"Bienvenue <@{member.id}> sur {member.guild.name} !")
+        await channel.send(
+            embed=discord.Embed(
+                colour=0x3498DB,
+                title=None,
+                description=f"**[NOUVEAU MEMBRE !](<https://skylandsmc.fr>)**\nBienvenue <@{member.id}> sur {member.guild.name}, amuse toi bien !\nTu est le membre #{member.guild.member_count} !",
+            )
+        )
 
         welcome_role = member.guild.get_role(WELCOME_ROLE_ID)
         if welcome_role is None:
@@ -27,9 +33,6 @@ def setup(client: discord.Client):
 
         try:
             await member.add_roles(welcome_role)
-            await channel.send(
-                f"On t'a préparé le rôle <@&{WELCOME_ROLE_ID}> juste pour toi ! Amuse toi bien sur {member.guild.name}"
-            )
         except:
             pass
 
