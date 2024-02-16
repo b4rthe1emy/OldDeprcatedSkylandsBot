@@ -1,5 +1,6 @@
 import discord
 from datetime import datetime
+from discord.ext.commands import Bot
 
 ADMIN_ROLE_ID = 1208047074558345227
 
@@ -13,11 +14,11 @@ def number_emoji(number: int):
     return emojis[number]
 
 
-def setup(client: discord.Client):
+def setup(bot: Bot):
 
-    @client.event
+    @bot.event
     async def on_message(message: discord.Message):
-        if message.author == client.user:
+        if message.author == bot.user:
             return
 
         if not message.content.startswith("/poll "):

@@ -20,20 +20,18 @@ TOKEN: Final[str] = (
     "MTIwNzQ1MDUwOTgzMzY3MDY2Nw.Gy884a.Z7FvKYl60BHGSHJOGY8e3ZskhRnfJfEml6aQkg"
 )
 
-# intents: discord.Intents = discord.Intents.default()
-# intents.message_content = True
-
-# bot = commands.Bot(command_prefix="/", intents=intents)
+intents: discord.Intents = discord.Intents.all()
+bot = commands.Bot(command_prefix="/", intents=intents)
 
 
-polls.setup(client)
-member_join.setup(client)
+polls.setup(bot)
+# member_join.setup(client)
 
 
-@client.event
+@bot.event
 async def on_ready():
-    date_print(f"{client.user} is running")
+    date_print(f"{bot.user} is running")
 
 
 if __name__ == "__main__":
-    client.run(TOKEN)
+    bot.run(TOKEN)
