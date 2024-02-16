@@ -1,6 +1,8 @@
 import discord
 from datetime import datetime
 
+ADMIN_ROLE_ID = 1208047074558345227
+
 
 def date_print(*args):
     print(f"{datetime.now():%c}", *args)
@@ -19,6 +21,14 @@ def setup(client: discord.Client):
             return
 
         if not message.content.startswith("/poll "):
+            return
+
+        if message.author.get_role(ADMIN_ROLE_ID) is None:
+            await message.channel.send(
+                f"Uniquement les admistraturs peuvent envoyer des sondages.",
+                silent=True,
+                reference=message,
+            )
             return
 
         options: str = message.content[6:]
@@ -46,6 +56,6 @@ def setup(client: discord.Client):
         for i in range(len(list_options)):
             await msg.add_reaction(number_emoji(i))
 
-        message.delete()
+        await message.delete()
 
     date_print("polls.py loaded succefully")
