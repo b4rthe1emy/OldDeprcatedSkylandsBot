@@ -1,6 +1,5 @@
 import discord
 from datetime import datetime
-from discord.ext.commands import Bot
 
 WELCOME_CHANNEL_ID = 1207611571782553653
 WELCOME_ROLE_ID = 1207618616623894538
@@ -10,9 +9,9 @@ def date_print(*args):
     print(f"{datetime.now():%c}", *args)
 
 
-def setup(bot: Bot):
+def setup(client: discord.Client):
 
-    @bot.event
+    @client.event
     async def on_member_join(member: discord.Member):
         channel = member.guild.get_channel(WELCOME_CHANNEL_ID)
         if channel is None:
@@ -35,4 +34,3 @@ def setup(bot: Bot):
             pass
 
     date_print("on_member_join.py loaded succefully")
-    return bot

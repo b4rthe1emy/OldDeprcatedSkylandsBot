@@ -20,25 +20,20 @@ TOKEN: Final[str] = (
     "MTIwNzQ1MDUwOTgzMzY3MDY2Nw.Gy884a.Z7FvKYl60BHGSHJOGY8e3ZskhRnfJfEml6aQkg"
 )
 
-intents: discord.Intents = discord.Intents.default()
-intents.message_content = True
+# intents: discord.Intents = discord.Intents.default()
+# intents.message_content = True
 
-bot = commands.Bot(command_prefix="/", intents=intents)
+# bot = commands.Bot(command_prefix="/", intents=intents)
 
 
 polls.setup(client)
-member_join.setup(bot)
+member_join.setup(client)
 
 
-@bot.event
-async def on_member_join(member):
-    await member.send("Private message")
-
-
-@bot.event
+@client.event
 async def on_ready():
-    date_print(f"{bot.user} is running")
+    date_print(f"{client.user} is running")
 
 
 if __name__ == "__main__":
-    bot.run(TOKEN)
+    client.run(TOKEN)

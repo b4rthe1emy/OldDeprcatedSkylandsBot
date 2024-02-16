@@ -1,5 +1,4 @@
 import discord
-from discord.ext.commands import Bot
 from datetime import datetime
 
 
@@ -12,12 +11,19 @@ def number_emoji(number: int):
     return emojis[number]
 
 
-def setup(bot: Bot):
+def setup(client: discord.Client):
 
-    @bot.command(name="poll")
-    async def poll(ctx, *options):
-        list_options = " ".join(options)
-        list_options = list_options.split(";")
+    @client.event
+    async def on_message(message: discord.Message):
+        if message.author == client.user:
+            return
+
+        if not message.content.startswith("/poll "):
+            return
+
+        options: str = message.content[6:]
+
+        list_options = message.content.split(";")
         title = list_options[0]
         list_options = list_options[1:]
 
@@ -28,9 +34,8 @@ def setup(bot: Bot):
             formated_options += option + "\n"
             number += 1
 
-        msg: discord.Message = await ctx.send(
+        msg: discord.Message = await message.channel.send(
             embed=discord.Embed(title=title, description=formated_options),
-            ephemeral=True,
         )
 
         number = 0
