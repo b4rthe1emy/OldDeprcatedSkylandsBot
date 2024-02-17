@@ -6,6 +6,8 @@ from datetime import datetime
 # import member_join
 import polls
 import private_messages
+from skylands_token import TOKEN
+
 
 intents: discord.Intents = discord.Intents.default()
 intents.message_content = True
@@ -16,10 +18,6 @@ client = discord.Client(intents=intents)
 def date_print(*args):
     print(f"{datetime.now():%c}", *args)
 
-
-TOKEN: Final[str] = (
-    "MTIwNzQ1MDUwOTgzMzY3MDY2Nw.Gy884a.Z7FvKYl60BHGSHJOGY8e3ZskhRnfJfEml6aQkg"
-)
 
 intents: discord.Intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="/", intents=intents)
