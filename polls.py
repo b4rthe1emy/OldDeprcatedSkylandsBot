@@ -25,7 +25,7 @@ def setup(bot: commands.Bot):
     async def poll(context: commands.Context):
         try:
             if context.message.author.get_role(ADMIN_ROLE_ID) is None:
-                await context.message.channel.send(
+                await context.reply(
                     f"Uniquement les admistraturs peuvent envoyer des sondages.",
                     silent=True,
                     reference=context.message,
@@ -50,7 +50,7 @@ def setup(bot: commands.Bot):
 
         view = polls_buttons.get_view(len(list_options))
 
-        poll_message: discord.Message = await context.message.channel.send(
+        poll_message: discord.Message = await context.reply(
             embed=discord.Embed(
                 title=title,
                 description=formated_options,
@@ -66,7 +66,7 @@ def setup(bot: commands.Bot):
     @bot.command(name="poll_list")
     async def poll_list(context: commands.Context):
         polls = "\n".join([str(p) for p in poll_votes.polls])
-        await context.message.channel.send(f"```\n{polls}\n```")
+        await context.reply(f"```\n{polls}\n```")
 
     @bot.command(name="poll_results")
     async def poll_results(context: commands.Context):
@@ -81,6 +81,7 @@ def setup(bot: commands.Bot):
             return
 
         poll = poll_votes.find_poll(poll_id)
+        poll_votes.polls.remove(poll)
         await context.reply(poll.votes)
 
     date_print("polls.py loaded succefully")
