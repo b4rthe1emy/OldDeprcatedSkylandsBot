@@ -7,7 +7,7 @@ from dataclasses import field
 class Poll:
     poll_id: int
     poll_message: discord.Message
-    votes: list[int] = field(default=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    votes: tuple[int] = field(default=(0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
 
     def vote(self, number):
         self.votes[number] += 1
