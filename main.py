@@ -1,11 +1,9 @@
-from typing import Final
 import discord
 from discord.ext import commands
 from datetime import datetime
 
 # import member_join
 import polls
-import private_messages
 from skylands_token import TOKEN
 
 
