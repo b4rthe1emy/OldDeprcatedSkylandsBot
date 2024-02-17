@@ -1,6 +1,7 @@
 import discord
 from datetime import datetime
 from discord.ext import commands
+from discord.ext import commands
 
 ADMIN_ROLE_ID = 1208047074558345227
 
@@ -20,23 +21,20 @@ import poll_votes
 
 def setup(bot: commands.Bot):
 
-    @bot.event
-    async def on_message(message: discord.Message):
-        if message.author == bot.user:
-            return
+    @bot.command(name="poll")
+    async def poll(context: commands.Context):
+        try:
+            if context.message.author.get_role(ADMIN_ROLE_ID) is None:
+                await context.message.channel.send(
+                    f"Uniquement les admistraturs peuvent envoyer des sondages.",
+                    silent=True,
+                    reference=context.message,
+                )
+                return
+        except Exception:
+            pass
 
-        if not message.content.startswith("/poll "):
-            return
-
-        if message.author.get_role(ADMIN_ROLE_ID) is None:
-            await message.channel.send(
-                f"Uniquement les admistraturs peuvent envoyer des sondages.",
-                silent=True,
-                reference=message,
-            )
-            return
-
-        options: str = message.content[6:]
+        options: str = context.message.content[6:]
 
         list_options = options.split(";")
         title = list_options[1]
@@ -52,17 +50,22 @@ def setup(bot: commands.Bot):
 
         view = polls_buttons.get_view(len(list_options))
 
-        poll_message: discord.Message = await message.channel.send(
+        poll_message: discord.Message = await context.message.channel.send(
             embed=discord.Embed(
-                title=f"[POLL_ID={poll_id}] " + title,
+                title=title,
                 description=formated_options,
                 colour=0x3498DB,
             ),
             view=view(poll_id),
         )
 
-        poll_votes.create_poll(poll_message, poll_id)
+        poll_votes.create_poll(poll_message, poll_id, len(list_options))
 
-        await message.delete()
+        await context.message.delete()
+
+    @bot.command(name="poll_list")
+    async def poll_list(context: commands.Context):
+        polls = "\n".join([str(p) for p in poll_votes.polls])
+        await context.message.channel.send(f"```\n{polls}\n```")
 
     date_print("polls.py loaded succefully")
