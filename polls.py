@@ -56,7 +56,7 @@ def setup(bot: commands.Bot):
                 description=formated_options,
                 colour=0x3498DB,
             ),
-            view=view(len(list_options)),
+            view=view(),
         )
 
         await message.delete()
