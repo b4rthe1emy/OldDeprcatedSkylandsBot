@@ -1,7 +1,6 @@
 import discord
 from datetime import datetime
 from discord.ext import commands
-from discord.ext import commands
 
 ADMIN_ROLE_ID = 1208047074558345227
 
@@ -50,7 +49,7 @@ def setup(bot: commands.Bot):
 
         view = polls_buttons.get_view(len(list_options))
 
-        poll_message: discord.Message = await context.reply(
+        poll_message: discord.Message = await context.channel.send(
             embed=discord.Embed(
                 title=title,
                 description=formated_options,
