@@ -1,5 +1,6 @@
 import discord
 from dataclasses import dataclass as dt
+from prints import debug
 
 
 class Poll:
@@ -37,4 +38,4 @@ def create_poll(poll_message: discord.Message, poll_id: int, options: int):
 def vote(poll_id, number):
     poll = find_poll(poll_id)
     poll.vote(number)
-    print(poll.votes)
+    debug(poll.votes)

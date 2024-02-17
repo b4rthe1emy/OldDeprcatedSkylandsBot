@@ -1,12 +1,8 @@
 import discord
-from datetime import datetime
 from discord.ext import commands
+from prints import *
 
 ADMIN_ROLE_ID = 1208047074558345227
-
-
-def date_print(*args):
-    print(f"{datetime.now():%c}", *args)
 
 
 def number_emoji(number: int):
@@ -83,4 +79,4 @@ def setup(bot: commands.Bot):
         poll_votes.polls.remove(poll)
         await context.reply(poll.votes)
 
-    date_print("polls.py loaded succefully")
+    load("polls.py", "loaded succefully")

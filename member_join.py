@@ -1,12 +1,8 @@
 import discord
-from datetime import datetime
+from prints import *
 
 WELCOME_CHANNEL_ID = 1207611571782553653
 WELCOME_ROLE_ID = 1207618616623894538
-
-
-def date_print(*args):
-    print(f"{datetime.now():%c}", *args)
 
 
 def setup(client: discord.Client):
@@ -17,7 +13,7 @@ def setup(client: discord.Client):
         if channel is None:
             return
 
-        print("new member")
+        debug("new member")
 
         await channel.send(
             embed=discord.Embed(
@@ -36,4 +32,4 @@ def setup(client: discord.Client):
         except:
             pass
 
-    date_print("on_member_join.py loaded succefully")
+    load("on_member_join.py loaded succefully")

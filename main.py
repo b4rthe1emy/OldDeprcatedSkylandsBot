@@ -1,20 +1,15 @@
 import discord
 from discord.ext import commands
-from datetime import datetime
 
 # import member_join
 import polls
 from skylands_token import TOKEN
-
+from prints import debug
 
 intents: discord.Intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 client = discord.Client(intents=intents)
-
-
-def date_print(*args):
-    print(f"{datetime.now():%c}", *args)
 
 
 intents: discord.Intents = discord.Intents.all()
@@ -28,7 +23,7 @@ polls.setup(bot)
 
 @bot.event
 async def on_ready():
-    date_print(f"{bot.user} is running")
+    debug(f"{bot.user} is running")
 
 
 if __name__ == "__main__":
