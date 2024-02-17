@@ -56,10 +56,10 @@ def setup(bot: commands.Bot):
                 description=formated_options,
                 colour=0x3498DB,
             ),
-            view=view(poll_id),
+            view=view(int(poll_id)),
         )
 
-        poll_votes.create_poll(poll_message, poll_id, len(list_options))
+        poll_votes.create_poll(poll_message, int(poll_id), len(list_options))
 
         await context.message.delete()
 
@@ -67,5 +67,20 @@ def setup(bot: commands.Bot):
     async def poll_list(context: commands.Context):
         polls = "\n".join([str(p) for p in poll_votes.polls])
         await context.message.channel.send(f"```\n{polls}\n```")
+
+    @bot.command(name="poll_results")
+    async def poll_results(context: commands.Context):
+        try:
+            poll_id = int(context.message.content[14:])
+        except:
+            await context.reply(
+                f"{context.message.content[14:]} n'est pas une id valide.",
+                ephemeral=True,
+            )
+            await context.message.delete()
+            return
+
+        poll = poll_votes.find_poll(poll_id)
+        await context.reply(poll.votes)
 
     date_print("polls.py loaded succefully")

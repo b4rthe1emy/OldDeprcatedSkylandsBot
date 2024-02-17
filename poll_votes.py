@@ -1,6 +1,5 @@
 import discord
 from dataclasses import dataclass as dt
-from dataclasses import field
 
 
 class Poll:
