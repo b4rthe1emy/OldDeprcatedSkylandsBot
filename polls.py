@@ -15,6 +15,7 @@ def number_emoji(number: int):
 
 
 import polls_buttons
+import poll_votes
 
 
 def setup(bot: commands.Bot):
@@ -38,8 +39,9 @@ def setup(bot: commands.Bot):
         options: str = message.content[6:]
 
         list_options = options.split(";")
-        title = list_options[0]
-        list_options = list_options[1:]
+        title = list_options[1]
+        poll_id = list_options[0]
+        list_options = list_options[2:]
 
         formated_options: str = ""
         number = 0
@@ -50,14 +52,16 @@ def setup(bot: commands.Bot):
 
         view = polls_buttons.get_view(len(list_options))
 
-        msg: discord.Message = await message.channel.send(
+        poll_message: discord.Message = await message.channel.send(
             embed=discord.Embed(
-                title=title,
+                title=f"[POLL_ID={poll_id}] " + title,
                 description=formated_options,
                 colour=0x3498DB,
             ),
-            view=view(),
+            view=view(poll_id),
         )
+
+        poll_votes.create_poll(poll_message, poll_id)
 
         await message.delete()
 
