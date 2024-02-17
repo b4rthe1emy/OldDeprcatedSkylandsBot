@@ -1,6 +1,6 @@
 import discord
 from datetime import datetime
-from discord.ext.commands import Bot
+from discord.ext import commands
 
 ADMIN_ROLE_ID = 1208047074558345227
 
@@ -14,7 +14,10 @@ def number_emoji(number: int):
     return emojis[number]
 
 
-def setup(bot: Bot):
+import polls_buttons
+
+
+def setup(bot: commands.Bot):
 
     @bot.event
     async def on_message(message: discord.Message):
@@ -45,17 +48,16 @@ def setup(bot: Bot):
             formated_options += option + "\n"
             number += 1
 
+        view = polls_buttons.get_view(len(list_options))
+
         msg: discord.Message = await message.channel.send(
             embed=discord.Embed(
                 title=title,
                 description=formated_options,
                 colour=0x3498DB,
             ),
+            view=view(len(list_options)),
         )
-
-        number = 0
-        for i in range(len(list_options)):
-            await msg.add_reaction(number_emoji(i))
 
         await message.delete()
 
