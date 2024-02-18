@@ -68,7 +68,7 @@ def setup(bot: commands.Bot):
         try:
             poll_id = int(context.message.content[14:])
         except:
-            await context.reply(
+            await context.channel.send(
                 f"{context.message.content[14:]} n'est pas une id valide.",
                 ephemeral=True,
             )
