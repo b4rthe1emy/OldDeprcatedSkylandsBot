@@ -1,8 +1,6 @@
 import discord
 from prints import *
-
-WELCOME_CHANNEL_ID = 1207611571782553653
-WELCOME_ROLE_ID = 1207618616623894538
+from parameters import *
 
 
 def setup(client: discord.Client):

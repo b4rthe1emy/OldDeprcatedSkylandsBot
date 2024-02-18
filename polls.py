@@ -1,8 +1,7 @@
 import discord
 from discord.ext import commands
 from prints import *
-
-ADMIN_ROLE_ID = 1208047074558345227
+from parameters import *
 
 
 def number_emoji(number: int):
@@ -70,7 +69,6 @@ def setup(bot: commands.Bot):
         except:
             await context.channel.send(
                 f"{context.message.content[14:]} n'est pas une id valide.",
-                ephemeral=True,
             )
             await context.message.delete()
             return

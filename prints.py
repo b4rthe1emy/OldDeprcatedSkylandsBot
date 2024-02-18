@@ -17,3 +17,10 @@ def load(import_: str, message: str):
         f"[yellow bold]MODULE   [/yellow bold]",
         f"[magenta]{import_}[/magenta] {message}",
     )
+
+
+def online(bot_name: str, message: str):
+    date_print(
+        f"[green bold]ONLINE   [/green bold]",
+        f"[magenta]{bot_name}[/magenta] {message}",
+    )
