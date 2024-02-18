@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 
 skylands_token.py
+parameters.py
 
 # C extensions
 *.so
