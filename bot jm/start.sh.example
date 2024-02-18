@@ -1,0 +1,3 @@
+#!/bin/bash
+sleep 5
+watchmedo auto-restart --patterns="*.py" --recursive --directory "./" -- python -u ./bot.py
